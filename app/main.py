@@ -2,6 +2,7 @@ from flask import Flask
 from flask_graphql import GraphQLView
 from graphene import Schema
 
+from app.db.database import check_and_initialize_missions
 from app.gql.mutation import Mutation
 from app.gql.query import Query
 
@@ -20,5 +21,5 @@ app.add_url_rule(
 )
 
 if __name__ == '__main__':
-    # init_db()
-    app.run()
+    # check_and_initialize_missions()
+    app.run(host="0.0.0.0", port=5000)

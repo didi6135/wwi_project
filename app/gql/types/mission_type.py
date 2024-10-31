@@ -12,6 +12,8 @@ class MissionType(ObjectType):
     aircraft_damaged = Float()
     aircraft_lost = Float()
 
+
+
 class MissionInputType(InputObjectType):
     mission_date = Date()
     airborne_aircraft = Float(default_value=None)

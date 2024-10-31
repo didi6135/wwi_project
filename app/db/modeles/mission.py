@@ -15,6 +15,5 @@ class Mission(Base):
     aircraft_damaged = Column(Numeric(10, 2), nullable=True)
     aircraft_lost = Column(Numeric(10, 2), nullable=True)
 
-    # Relationship with Target
     targets = relationship("Target", back_populates="mission")
 

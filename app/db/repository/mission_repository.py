@@ -1,7 +1,5 @@
 from app.db.database import session_maker
 from app.db.modeles import Mission, Target, Country, City
-from app.db.modeles.target_type import TargetType
-
 
 def get_all_missions():
     with session_maker() as session:
@@ -31,7 +29,6 @@ def get_missions_by_target_industry(industry: str):
 
 
 
-# # Add Mission
 def add_new_mission(mission_data):
     with session_maker() as session:
         new_mission = Mission(**mission_data)

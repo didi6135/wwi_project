@@ -5,6 +5,8 @@ from graphene import Schema
 from app.gql.mutation import Mutation
 from app.gql.query import Query
 
+
+
 app = Flask(__name__)
 schema = Schema(query=Query, mutation=Mutation)
 

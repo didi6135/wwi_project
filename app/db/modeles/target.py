@@ -14,10 +14,8 @@ class Target(Base):
     target_type_id = Column(Integer, ForeignKey('targettypes.target_type_id'))
     target_priority = Column(Integer, nullable=True)
 
-    # Relationship with City
     city = relationship("City", back_populates="targets")
 
-    # Relationship with Mission
     mission = relationship("Mission", back_populates="targets")
 
     target_type = relationship("TargetType", back_populates="targets")

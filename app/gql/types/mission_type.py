@@ -1,4 +1,4 @@
-from graphene import ObjectType, Int, String, Float, Date, InputObjectType
+from graphene import ObjectType, Int, Float, Date, InputObjectType
 
 
 class MissionType(ObjectType):

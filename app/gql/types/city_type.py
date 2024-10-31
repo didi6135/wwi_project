@@ -11,10 +11,7 @@ class CityType(ObjectType):
     latitude = Float()
     longitude = Float()
 
-    # Relationship to the Country table
     country = Field(lambda: CountyType)
-    # Relationship to the Target table
-    # targets = relationship("Target", back_populates="city")
 
     @staticmethod
     def resolve_country(root, info):

@@ -1,7 +1,4 @@
-from sqlalchemy import func
-
 from app.db.database import session_maker
-from app.db.modeles import Mission, Target
 from app.db.modeles.city import City
 
 

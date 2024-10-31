@@ -9,7 +9,7 @@ def get_all_missions():
             return session.query(Mission).all()
     except SQLAlchemyError as e:
         print(f"An error occurred: {e}")
-        return False
+        return None
 
 def get_mission_by_id(mission_id):
     try:
@@ -17,7 +17,7 @@ def get_mission_by_id(mission_id):
             return session.query(Mission).filter_by(mission_id=mission_id).first()
     except SQLAlchemyError as e:
         print(f"An error occurred: {e}")
-        return False
+        return None
 
 def get_missions_between_dates(start_date, end_date):
     try:
@@ -25,7 +25,7 @@ def get_missions_between_dates(start_date, end_date):
             return session.query(Mission).filter(Mission.mission_date.between(start_date, end_date)).all()
     except SQLAlchemyError as e:
         print(f"An error occurred: {e}")
-        return False
+        return None
 
 def get_missions_by_county_name(country_name):
     try:
@@ -33,7 +33,7 @@ def get_missions_by_county_name(country_name):
             return session.query(Mission).join(Mission.targets).join(Target.city).join(City.country).filter(Country.country_name == country_name).all()
     except SQLAlchemyError as e:
         print(f"An error occurred: {e}")
-        return False
+        return None
 
 def get_missions_by_target_industry(industry: str):
     try:
@@ -41,7 +41,7 @@ def get_missions_by_target_industry(industry: str):
             return session.query(Mission).join(Mission.targets).filter(Target.target_industry == industry).all()
     except SQLAlchemyError as e:
         print(f"An error occurred: {e}")
-        return False
+        return None
 
 def add_new_mission(mission_data):
     try:
@@ -53,32 +53,35 @@ def add_new_mission(mission_data):
             return new_mission
     except SQLAlchemyError as e:
         print(f"An error occurred: {e}")
-        return False
+        return None
 
 def update_mission_by_id(mission_id, attack_result_data):
     try:
         with session_maker() as session:
             attack_result = session.query(Mission).filter_by(mission_id=mission_id).first()
             if not attack_result:
-                raise Exception("Mission result not found")
+                return None
             for key, value in attack_result_data.items():
                 setattr(attack_result, key, value)
             session.commit()
             return attack_result
     except SQLAlchemyError as e:
         print(f"An error occurred: {e}")
-        return False
+        return None
 
 def delete_mission(mission_id):
     try:
         with session_maker() as session:
             mission = session.query(Mission).filter_by(mission_id=mission_id).first()
             if not mission:
-                raise Exception("Mission not found")
-            session.query(Target).filter_by(mission_id=mission_id).delete()
-            session.query(Mission).filter_by(mission_id=mission_id).delete()
+                return None
+            target = session.query(Target).filter_by(mission_id=mission_id)
+            if not target:
+                return None
+            session.delete(target)
+
             session.delete(mission)
             session.commit()
     except SQLAlchemyError as e:
         print(f"An error occurred: {e}")
-        return False
+        return None

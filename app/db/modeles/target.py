@@ -19,3 +19,5 @@ class Target(Base):
 
     # Relationship with Mission
     mission = relationship("Mission", back_populates="targets")
+
+    target_type = relationship("TargetType", back_populates="targets")

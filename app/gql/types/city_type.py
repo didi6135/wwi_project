@@ -1,4 +1,7 @@
-from graphene import ObjectType, Int, String, Float
+from graphene import ObjectType, Int, String, Float, Field
+
+from app.db.repository.countries_repository import get_country_by_id
+from app.gql.types.country_type import CountyType
 
 
 class CityType(ObjectType):
@@ -9,7 +12,10 @@ class CityType(ObjectType):
     longitude = Float()
 
     # Relationship to the Country table
-    # country = relationship("Country", back_populates="cities")
+    country = Field(lambda: CountyType)
     # Relationship to the Target table
     # targets = relationship("Target", back_populates="city")
 
+    @staticmethod
+    def resolve_country(root, info):
+        return get_country_by_id(root.country_id)

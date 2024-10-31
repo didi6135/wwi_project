@@ -12,5 +12,4 @@ def get_mission_results_by_type(attack_type: str):
             .filter(TargetType.target_type_name == attack_type)
             .all()
         )
-        # return session.query(Mission).join(Mission.target_type_id).filter(TargetType.target_type_name == attack_type).all()
 
